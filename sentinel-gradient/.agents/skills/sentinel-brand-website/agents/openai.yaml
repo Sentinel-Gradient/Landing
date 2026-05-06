@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sentinel Brand Website"
+  short_description: "Design and content workflow for Sentinel Gradient website pages."
+  brand_color: "#1F97C1"
+  default_prompt: "Use $sentinel-brand-website to update Sentinel Gradient website copy, layout, UX, and brand-aligned frontend sections."

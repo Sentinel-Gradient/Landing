@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 type SeoOptions = {
   route: string;
@@ -7,26 +8,43 @@ type SeoOptions = {
   imageSlug?: string;
 };
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://sentinelgradient.com";
-
 export function buildMetadata({ route, title, description, imageSlug }: SeoOptions): Metadata {
   const normalizedRoute = route.startsWith("/") ? route : `/${route}`;
   const isHome = normalizedRoute === "/" || normalizedRoute === "//";
-  const canonicalUrl = isHome ? BASE_URL : `${BASE_URL}${normalizedRoute}`;
+  const canonicalUrl = absoluteUrl(isHome ? "/" : normalizedRoute);
   const slug = imageSlug ?? (isHome ? "home" : normalizedRoute.replace(/^\//, ""));
-  const ogImage = `${BASE_URL}/og/${slug}.png`;
+  const ogImage = absoluteUrl(`/og/${slug}.png`);
 
   return {
     title,
     description,
+    keywords: [
+      "Sentinel Gradient",
+      "AI research company",
+      "machine learning systems",
+      "computer vision",
+      "intelligent automation",
+      "applied R&D",
+      "Charlottesville Virginia AI",
+    ],
+    authors: [{ name: siteConfig.name }],
+    creator: siteConfig.name,
+    publisher: siteConfig.name,
     alternates: { canonical: canonicalUrl },
     openGraph: {
       title,
       description,
       url: canonicalUrl,
       type: "website",
-      siteName: "Sentinel Gradient",
-      images: [ogImage],
+      siteName: siteConfig.shortName,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${siteConfig.shortName} - ${title}`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -37,4 +55,3 @@ export function buildMetadata({ route, title, description, imageSlug }: SeoOptio
     robots: { index: true, follow: true },
   };
 }
-

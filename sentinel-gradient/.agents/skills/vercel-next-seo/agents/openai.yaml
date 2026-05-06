@@ -1,0 +1,5 @@
+interface:
+  display_name: "Vercel Next SEO"
+  short_description: "Vercel, Next.js App Router, metadata, sitemap, robots, and SEO checks."
+  brand_color: "#25678A"
+  default_prompt: "Use $vercel-next-seo to audit and improve Vercel readiness, Next.js metadata, sitemap, robots, structured data, and SEO."

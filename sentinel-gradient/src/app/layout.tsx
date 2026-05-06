@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 import {
   Montserrat,
   Playfair_Display,
 } from "next/font/google";
 import "./globals.css";
+import { siteConfig } from "@/lib/site";
+
+const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID;
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -21,7 +25,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.sentinelgradient.com"),
+  metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: "/",
   },
@@ -36,14 +40,13 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   title: {
-    default: "Sentinel Gradient — AI Assurance and Interpretability Research",
+    default: "Sentinel Gradient - AI and Machine Learning Research",
     template: "%s | Sentinel Gradient",
   },
-  description:
-    "Sentinel Gradient LLC delivers interpretable ML, LLM evaluation, and autonomy assurance for defense and public sector programs.",
+  description: siteConfig.description,
   openGraph: {
     type: "website",
-    siteName: "Sentinel Gradient",
+    siteName: siteConfig.shortName,
     locale: "en_US",
   },
   twitter: {
@@ -69,22 +72,27 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="gtag-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
+        <Analytics />
+        {googleAnalyticsId ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
+              strategy="afterInteractive"
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXX', { page_path: window.location.pathname });
+              gtag('config', '${googleAnalyticsId}', { page_path: window.location.pathname });
             `,
-          }}
-        />
+              }}
+            />
+          </>
+        ) : null}
       </body>
     </html>
   );

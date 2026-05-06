@@ -1,10 +1,12 @@
 import Link from "next/link";
-import Script from "next/script";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { Card } from "@/components/ui/card";
 import { ButtonLink } from "@/components/ui/button";
+import { ContactForm } from "@/components/contact-form";
+import { StructuredData } from "@/components/structured-data";
 import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 export const revalidate = 86400;
 
@@ -13,11 +15,27 @@ export async function generateMetadata() {
     route: "/contact",
     title: "Contact Sentinel Gradient — AI Assurance & Interpretability Experts",
     description:
-      "Reach Sentinel Gradient LLC to discuss AI assurance, interpretable machine learning, LLM evaluation, and SBIR/STTR teaming opportunities with our Virginia research firm.",
+      "Reach Sentinel Gradient LLC to discuss artificial intelligence, machine learning, computer vision, NLP, and applied R&D engagements.",
   });
 }
 
 export default function ContactPage() {
+  const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    url: absoluteUrl("/contact"),
+    mainEntity: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      email: siteConfig.email,
+      telephone: siteConfig.phone,
+      address: {
+        "@type": "PostalAddress",
+        ...siteConfig.address,
+      },
+    },
+  };
+
   return (
     <div className="relative overflow-hidden">
       <div className="hero-aurora" aria-hidden="true" />
@@ -26,6 +44,7 @@ export default function ContactPage() {
         className="relative mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-6 py-24 sm:px-10 lg:px-16"
       >
         <Header />
+        <StructuredData id="contact-schema" data={contactSchema} />
 
         <section className="mt-16 flex flex-col gap-8 md:mt-20 md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl space-y-6 reveal-up">
@@ -33,27 +52,25 @@ export default function ContactPage() {
             <h1 className="text-4xl leading-tight sm:text-5xl">Contact Sentinel Gradient.</h1>
             <p className="text-lg leading-relaxed text-gray-azure">
               Share the program, research initiative, or technical evaluation you are advancing. We respond with alignment notes,
-              points of contact, and recommended next steps so engagements begin with clarity. For contracting context, review our{" "}
+              points of contact, and recommended next steps so engagements begin with clarity. For company data and contracting
+              context, review our{" "}
               <Link href="/contracts" className="underline decoration-sg-light-azure hover:text-off-white">
-                SBIR/STTR readiness overview
+                collaboration readiness overview
               </Link>
               .
             </p>
           </div>
           <Card className="max-w-md space-y-4 text-sm text-gray-azure">
             <p className="text-sm font-semibold uppercase tracking-[0.35em] text-gray-azure-subtle">Engagement Signals</p>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Expect a response from our leadership team within two business days.
+            <ul className="sg-bullet-list space-y-3">
+              <li>
+                Direct leadership contact for AI, machine learning, and applied R&amp;D discussions.
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                We maintain secure channels for sensitive research and contracting discussions.
+              <li>
+                Charlottesville-based small business with active SAM registration.
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Provide mission context so we can align the appropriate technical leads from the outset.
+              <li>
+                Provide mission context so we can align scope, technical focus, and next steps from the outset.
               </li>
             </ul>
           </Card>
@@ -70,31 +87,10 @@ export default function ContactPage() {
               >
                 info@sentinelgradient.com
               </a>{" "}
-              with mission context, technology focus, and desired timelines. Our research leads respond within two business days
-              with recommended points of contact and next steps.
+              with mission context, technology focus, and desired timelines, or use the form below to prepare a structured inquiry.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink
-              href="mailto:info@sentinelgradient.com?subject=Sentinel%20Gradient%20Collaboration%20Inquiry"
-              variant="primary"
-              eventName="contact_email_click"
-              eventParams={{ location: "contact_primary_cta" }}
-            >
-              Email Our Team
-            </ButtonLink>
-            <ButtonLink
-              href="/documents/sentinel-gradient-capability-statement.pdf"
-              variant="secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-              download
-              eventName="capability_pdf_download"
-              eventParams={{ source: "contact_primary_cta" }}
-            >
-              Capability Statement (PDF)
-            </ButtonLink>
-          </div>
+          <ContactForm location="contact_page" />
         </Card>
 
         <div className="mt-20 space-y-6">
@@ -118,29 +114,6 @@ export default function ContactPage() {
             </ButtonLink>
           </div>
         </div>
-
-        <Script
-          id="contact-schema"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ContactPage",
-              url: "https://sentinelgradient.com/contact",
-              mainEntity: {
-                "@type": "Organization",
-                name: "Sentinel Gradient LLC",
-                email: "contact@sentinelgradient.com",
-                address: {
-                  "@type": "PostalAddress",
-                  addressRegion: "VA",
-                  addressCountry: "US",
-                },
-              },
-            }),
-          }}
-        />
 
         <Footer />
       </main>

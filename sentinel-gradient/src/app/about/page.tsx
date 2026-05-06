@@ -4,26 +4,28 @@ import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { StructuredData } from "@/components/structured-data";
 import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const approachPillars = [
-  "Construct evidence-driven evaluation plans that quantify model reliability before deployment.",
-  "Integrate interpretability tooling across the lifecycle to surface rationale and mitigate drift.",
-  "Co-develop architectures with partners, aligning benchmarks to mission-specific performance gates.",
-  "Document traceable methodologies so regulators and contracting officers can audit every decision.",
+  "Develop AI and machine learning systems around measurable client problems and operational constraints.",
+  "Prototype rapidly while preserving testing discipline, model evaluation, and deployment readiness.",
+  "Build practical automation, computer vision, NLP, and decision support systems for real-world use.",
+  "Work directly with partners as an agile small business with active federal registration.",
 ];
 
 const teamProfiles = [
   {
     name: "Bhavya Johar",
     role: "Co-Founder & CEO",
-    bio: "Leads company strategy and programs. Focused on mission-aligned AI assurance, acquisition-readiness, and transitioning research to deployable capability.",
+    bio: "Leads company strategy, partnerships, and program execution. Focused on applied AI systems that create measurable value for government and commercial organizations.",
     image: "/team/bhavya_pfp.jpeg",
   },
   {
     name: "Vedant Vajre",
     role: "Co-Founder & CTO",
-    bio: "Owns technical direction and architectures. Builds interpretable, resilient evaluation pipelines and governance baselines for autonomy and LLM systems.",
+    bio: "Owns technical direction and system architecture. Builds machine learning, automation, and decision-support prototypes designed for reliable deployment.",
     image: "/team/vedant_pfp.jpeg",
   },
 ];
@@ -33,13 +35,29 @@ export const revalidate = 86400;
 export async function generateMetadata() {
   return buildMetadata({
     route: "/about",
-    title: "About Sentinel Gradient — Virginia AI Assurance & Interpretability Research",
+    title: "About Sentinel Gradient - Virginia AI & Machine Learning Research",
     description:
-      "Learn how Sentinel Gradient LLC advances AI safety, interpretable machine learning, and SBIR-ready autonomy research for defense, aerospace, and public sector partners.",
+      "Learn how Sentinel Gradient LLC develops artificial intelligence and machine learning systems for government and commercial organizations.",
   });
 }
 
 export default function AboutPage() {
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    url: absoluteUrl("/about"),
+    mainEntity: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      address: {
+        "@type": "PostalAddress",
+        ...siteConfig.address,
+      },
+      naics: siteConfig.naics,
+    },
+  };
+
   return (
     <div className="relative overflow-hidden">
       <div className="hero-aurora" aria-hidden="true" />
@@ -48,6 +66,7 @@ export default function AboutPage() {
         className="relative mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-6 py-24 sm:px-10 lg:px-16"
       >
         <Header />
+        <StructuredData id="about-schema" data={aboutSchema} />
 
         <section className="mt-16 flex flex-col gap-8 md:mt-20 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl space-y-6 reveal-up">
@@ -56,9 +75,9 @@ export default function AboutPage() {
             </p>
             <h1 className="text-4xl leading-tight sm:text-5xl">Research with Purpose.</h1>
             <p className="text-lg leading-relaxed text-gray-azure">
-              We build mission-aligned machine intelligence that stands up to scrutiny. Our teams combine empirical rigor
-              with operational context to design, validate, and deliver AI capabilities that perform reliably in contested
-              environments while documenting model governance for regulators and acquisition teams.
+              We build artificial intelligence and machine learning systems that solve complex problems, improve decisions,
+              automate critical workflows, and turn data into measurable results. Our focus is powerful technology that performs
+              in real-world environments.
             </p>
           </div>
           <div className="flex items-center gap-4 md:gap-6">
@@ -88,33 +107,29 @@ export default function AboutPage() {
           <div className="space-y-6 reveal-up">
             <h2 className="text-3xl">Mission, Expertise, and Credibility</h2>
             <p className="text-base leading-relaxed text-gray-azure">
-              Sentinel Gradient LLC exists to strengthen decision-making systems where precision and accountability are
-              non-negotiable. Our research portfolio spans AI assurance, autonomy calibration, and model governance for
-              federal and commercial partners who demand auditable performance and SBIR/STTR-ready deliverables. Our contracting
-              practice integrates{" "}
+              Sentinel Gradient LLC exists to help government and commercial organizations apply advanced AI where decisions,
+              automation, and operational outcomes matter. Our core work spans custom model development, predictive analytics,
+              computer vision, autonomous systems, data engineering, NLP applications, and applied R&amp;D. Our company data and
+              federal registration details are available in the{" "}
               <Link href="/contracts" className="underline decoration-sg-light-azure hover:text-off-white">
-                SBIR/STTR collaboration frameworks
+                collaboration readiness overview
               </Link>{" "}
-              so teaming partners can accelerate evaluations.
+              for partners evaluating teaming and contracting opportunities.
             </p>
             <p className="text-base leading-relaxed text-gray-azure">
-              We operate as a research-native firm with contracting fluency, integrating human factors, model
-              interpretability, and data stewardship into every engagement. By respecting accreditation pathways and
-              compliance frameworks, we ensure our solutions transition smoothly from laboratory prototypes to fielded
-              capability.
+              Our differentiators are direct: proven experience developing AI systems for real-world assistive technology,
+              specialized expertise in computer vision and intelligent automation, and an agile operating model that keeps
+              clients close to the technical work.
             </p>
-            <ul className="space-y-3 text-base text-gray-azure">
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Contract-ready processes aligned to SBIR, STTR, and OTA mechanisms.
+            <ul className="sg-bullet-list space-y-3 text-base text-gray-azure">
+              <li>
+                Active SAM registration with UEI LZQMAV479P59 and CAGE Code 178C5.
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Validated evaluation harnesses for autonomy, LLM, and safety benchmarks.
+              <li>
+                Past performance on NIH-funded assistive technology research and AI-based toxicity prediction.
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Transparent reporting that equips stakeholders to verify outcomes quickly.
+              <li>
+                Deployable prototypes designed for low latency and edge-device performance.
               </li>
             </ul>
           </div>
@@ -132,19 +147,19 @@ export default function AboutPage() {
               <div className="rounded-2xl border border-white/20 bg-white/10 p-4 text-sm text-gray-azure">
                 <p className="font-semibold text-off-white">Validated Pipelines</p>
                 <p className="mt-2 leading-relaxed">
-                  Continuous evaluation loops connect datasets, metrics, and governance checkpoints.
+                  Model testing and deployment workflows connect datasets, metrics, and performance evidence.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-gray-azure">
                 <p className="font-semibold text-off-white">Benchmarks in Context</p>
                 <p className="mt-2 leading-relaxed">
-                  Scenario modeling captures contested environments and real-world operational limits.
+                  Real-world assistive technology and object-detection work informs practical evaluation constraints.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/15 bg-white/10 p-4 text-sm text-gray-azure">
                 <p className="font-semibold text-off-white">Accountable Outcomes</p>
                 <p className="mt-2 leading-relaxed">
-                  Every insight is packaged with traceable evidence to support acquisition decisions.
+                  Every prototype is oriented toward measurable value, decision support, and deployment readiness.
                 </p>
               </div>
             </div>
@@ -155,8 +170,8 @@ export default function AboutPage() {
           <div className="reveal-up">
             <h2 className="text-3xl">Our Approach</h2>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-azure">
-              We stay grounded in disciplined research practices so partners can trust the technical and programmatic
-              feasibility of each deliverable.
+              We stay grounded in disciplined applied research practices so partners can trust both the technical direction and
+              the implementation path.
             </p>
           </div>
           <ul className="grid gap-6 md:grid-cols-2">
@@ -172,7 +187,7 @@ export default function AboutPage() {
           <div className="reveal-up">
             <h2 className="text-3xl">Team Leadership</h2>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-gray-azure">
-              Co-founders and systems engineers translating academic advancements into deployable capability.
+              Co-founders translating applied AI research into deployable capability.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2">
@@ -204,8 +219,8 @@ export default function AboutPage() {
           <div className="space-y-4">
             <h2 className="text-3xl">Download Our Capability Statement</h2>
             <p className="text-base leading-relaxed text-gray-azure">
-              Review our contracting identifiers, research qualifications, and past performance summaries prepared for
-              rapid SBIR and partnering discussions.
+              Review our company data, differentiators, core competencies, and past performance summaries prepared for partner
+              and contracting discussions.
             </p>
           </div>
           <ButtonLink

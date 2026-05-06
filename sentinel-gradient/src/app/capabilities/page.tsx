@@ -1,54 +1,55 @@
 import Link from "next/link";
-import Script from "next/script";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { StructuredData } from "@/components/structured-data";
 import { buildMetadata } from "@/lib/seo";
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const capabilityAreas = [
   {
     title: "Applied Machine Learning Research",
     description:
-      "Evidence-driven modeling across classification, anomaly detection, and time-series analysis. We build reproducible, high-assurance ML pipelines that withstand operational scrutiny in defense and biomedical settings.",
-    tags: ["ML", "TensorFlow", "PyTorch", "Time Series", "Model Evaluation"],
+      "Custom AI and machine learning model development for classification, prediction, optimization, and operational decision support. We focus on practical systems that turn complex data into measurable results.",
+    tags: ["ML", "Predictive Analytics", "Model Evaluation", "Optimization"],
   },
   {
-    title: "AI Safety & Interpretability",
+    title: "Computer Vision & Sensor Intelligence",
     description:
-      "Explainable AI frameworks, bias detection, and traceable model auditing that keep critical decisions accountable. Our teams embed interpretability tooling across the lifecycle so stakeholders can challenge every inference.",
-    tags: ["AI Safety", "Interpretability", "Explainability", "Governance"],
+      "Computer vision and sensor-based intelligence for real-world assistive technology, object detection, and low-latency perception workflows designed for complex environments.",
+    tags: ["Computer Vision", "Sensors", "Detection", "Edge Performance"],
   },
   {
-    title: "Applied LLM Engineering",
+    title: "Natural Language Processing Applications",
     description:
-      "Domain-specific LLM development supported by PsychBERT lineage and operational fine-tuning workflows. We design LangChain pipelines, retrieval layers, and prompt evaluations tailored to constrained mission data.",
-    tags: ["LLMs", "NLP", "Transformers", "Prompt Engineering"],
+      "NLP systems and language interfaces that help organizations extract, structure, and act on domain-specific information with clear evaluation criteria and deployment constraints.",
+    tags: ["NLP", "Language Systems", "Information Extraction", "Evaluation"],
   },
   {
-    title: "Autonomous & Data-Centric Systems",
+    title: "Autonomous Systems & Decision Algorithms",
     description:
-      "Integration of autonomy research with resilient sensing, simulation, and anomaly response. Systems adapt to uncertainty, maintain performance envelopes, and document behavior under contested conditions.",
-    tags: ["Autonomy", "Simulation", "Anomaly Detection", "Robotics"],
+      "Autonomous systems and decision algorithms that support automation, anomaly response, and high-stakes operational workflows where performance must remain understandable and testable.",
+    tags: ["Autonomy", "Decision Algorithms", "Anomaly Detection", "Testing"],
   },
   {
-    title: "Systems Engineering & Deployment",
+    title: "Data Engineering & Intelligent Automation",
     description:
-      "Full-stack infrastructure that connects research prototypes to production-grade dashboards. We implement AWS-backed pipelines and React interfaces that preserve observability and governance from day one.",
-    tags: ["Full Stack", "AWS", "React", "System Integration"],
+      "Data pipelines, workflow automation, and decision support platforms that connect applied research prototypes to secure, usable systems for government and commercial organizations.",
+    tags: ["Data Engineering", "Automation", "Decision Support", "Deployment"],
   },
   {
-    title: "Quantitative Modeling & Decision Analytics",
+    title: "Research Prototyping & Applied R&D",
     description:
-      "Analytical pipelines that transform complex data into defensible decisions. We combine statistical modeling with API-driven dissemination to support acquisition, investment, and technical evaluations.",
-    tags: ["Quantitative Analysis", "Data Science", "APIs", "Decision Support"],
+      "Applied R&D programs that move from empirical prototypes to deployable systems, including model optimization, testing, validation, and transition planning for high-stakes environments.",
+    tags: ["Applied R&D", "Prototyping", "Validation", "Secure AI"],
   },
 ];
 
 const readinessSignals = [
-  "Deliverable roadmaps include validation gates mapped to stakeholder risk profiles.",
-  "Methodologies incorporate ARIA-labelled dashboards, ensuring evidence is auditable.",
-  "Data governance and documentation packages accelerate partner onboarding and compliance checks.",
+  "Proven experience developing advanced AI systems for real-world assistive technology applications.",
+  "Specialized expertise in computer vision, machine learning, and intelligent automation.",
+  "Deployable prototypes designed for low latency, edge-device performance, and measurable operational value.",
 ];
 
 export const revalidate = 86400;
@@ -56,13 +57,31 @@ export const revalidate = 86400;
 export async function generateMetadata() {
   return buildMetadata({
     route: "/capabilities",
-    title: "Our Expertise — AI Safety, LLM Evaluation, Autonomy & ML Systems",
+    title: "Our Expertise — AI, Machine Learning, Computer Vision & Applied R&D",
     description:
-      "Explore Sentinel Gradient’s AI assurance, AI safety and interpretability, applied LLM engineering, autonomy assurance, and data-centric ML capabilities for defense and public sector programs.",
+      "Explore Sentinel Gradient's AI, machine learning, computer vision, NLP, autonomous systems, data engineering, and applied R&D capabilities.",
   });
 }
 
 export default function CapabilitiesPage() {
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+      { "@type": "ListItem", position: 2, name: "Our Expertise", item: absoluteUrl("/capabilities") },
+    ],
+  };
+
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: siteConfig.name,
+    url: absoluteUrl("/capabilities"),
+    areaServed: "United States",
+    serviceType: capabilityAreas.map((area) => area.title),
+  };
+
   return (
     <div className="relative overflow-hidden">
       <div className="hero-aurora" aria-hidden="true" />
@@ -72,21 +91,8 @@ export default function CapabilitiesPage() {
       >
         <Header />
 
-        <Script
-          id="capabilities-breadcrumbs"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                { "@type": "ListItem", position: 1, name: "Home", item: "https://sentinelgradient.com/" },
-                { "@type": "ListItem", position: 2, name: "Our Expertise", item: "https://sentinelgradient.com/capabilities" },
-              ],
-            }),
-          }}
-        />
+        <StructuredData id="capabilities-breadcrumbs" data={breadcrumbSchema} />
+        <StructuredData id="capabilities-services" data={serviceSchema} />
 
         {/* Hero */}
         <section className="mt-16 flex flex-col gap-10 md:mt-20 md:flex-row md:items-center md:justify-between">
@@ -96,9 +102,9 @@ export default function CapabilitiesPage() {
             </p>
             <h1 className="text-4xl leading-tight sm:text-5xl">Our Expertise.</h1>
             <p className="text-lg leading-relaxed text-gray-azure">
-              Sentinel Gradient LLC structures every engagement around verifiable research outcomes. Our teams align analytical
-              depth, engineering rigor, and compliance readiness so collaborators can rely on transparent performance across
-              autonomous, safety-critical, and data-intensive systems. Download our{" "}
+              Sentinel Gradient LLC develops advanced artificial intelligence and machine learning systems for government and
+              commercial organizations. Our teams help clients solve complex problems, improve decisions, automate critical
+              workflows, and turn data into measurable results. Download our{" "}
               <Link
                 href="/documents/sentinel-gradient-capability-statement.pdf"
                 className="underline decoration-sg-light-azure hover:text-off-white"
@@ -107,7 +113,7 @@ export default function CapabilitiesPage() {
               </Link>{" "}
               or connect with our{" "}
               <Link href="/contracts" className="underline decoration-sg-light-azure hover:text-off-white">
-                SBIR/STTR contracting team
+                contracting team
               </Link>{" "}
               for tailored teaming discussions.
             </p>
@@ -117,18 +123,15 @@ export default function CapabilitiesPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.35em] text-gray-azure-subtle">
               Evaluation Focus
             </p>
-            <ul className="mt-4 space-y-3 text-sm text-gray-azure">
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Reproducible baselines tuned to mission data realities.
+            <ul className="sg-bullet-list mt-4 space-y-3 text-sm text-gray-azure">
+              <li>
+                Custom AI and machine learning model development.
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Model accountability frameworks with explainability checkpoints.
+              <li>
+                Predictive analytics, forecasting, and decision support.
               </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Transition plans that preserve fidelity from prototype to deployment.
+              <li>
+                Model optimization, testing, and deployment.
               </li>
             </ul>
           </Card>
@@ -142,9 +145,8 @@ export default function CapabilitiesPage() {
             </p>
             <h2 className="text-3xl sm:text-4xl">Precision-led research, ready for operational scrutiny.</h2>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-azure">
-              Each capability tile distills the engineering focus areas we bring to federal, commercial, and laboratory
-              partners—grounded in measurable benchmarks, collaborative workflows, and documentation that supports acquisition
-              and oversight audiences.
+              Each capability tile distills the engineering focus areas we bring to partners. The work is grounded in measurable
+              benchmarks, collaborative workflows, and practical solutions that create value beyond research for its own sake.
             </p>
           </div>
 
@@ -178,15 +180,12 @@ export default function CapabilitiesPage() {
         <Card className="mt-24 space-y-6">
           <h2 className="text-3xl">Readiness Signals We Deliver</h2>
           <p className="max-w-3xl text-base leading-relaxed text-gray-azure">
-            Partners count on Sentinel Gradient for analytic depth and governance clarity. We integrate telemetry,
-            documentation, and validation tooling so program managers and reviewers see the evidence chain without friction.
+            Partners count on Sentinel Gradient for analytic depth, practical implementation, and clear evidence of technical
+            progress. Our work emphasizes direct collaboration, deployable prototypes, and measured performance.
           </p>
-          <ul className="space-y-3 text-base text-gray-azure">
+          <ul className="sg-bullet-list space-y-3 text-base text-gray-azure">
             {readinessSignals.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                {item}
-              </li>
+              <li key={item}>{item}</li>
             ))}
           </ul>
           <div>

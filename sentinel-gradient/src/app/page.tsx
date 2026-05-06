@@ -1,30 +1,56 @@
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 import { Header } from "@/components/ui/header";
 import { Footer } from "@/components/ui/footer";
 import { ButtonLink } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { StructuredData } from "@/components/structured-data";
 import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 
 const initiatives = [
   {
     title: "Research",
     description:
-      "Designing empirical studies that validate advanced learning systems for high-assurance environments.",
+      "Developing applied R&D programs that turn AI and machine learning concepts into measurable results.",
     icon: "/globe.svg",
   },
   {
     title: "Development",
     description:
-      "Engineering interpretable LLM pipelines and autonomy stacks that align with mission requirements.",
+      "Engineering computer vision, NLP, automation, and decision-support prototypes for real-world environments.",
     icon: "/window.svg",
   },
   {
     title: "Consulting",
     description:
-      "Partnering with laboratories and program offices to harden AI roadmaps with measurable rigor.",
+      "Working directly with partners to define practical AI solutions, evaluation plans, and deployment paths.",
     icon: "/file.svg",
+  },
+];
+
+const proofPoints = [
+  { label: "SAM status", value: "Active" },
+  { label: "UEI", value: "LZQMAV479P59" },
+  { label: "CAGE", value: "178C5" },
+  { label: "NAICS", value: "541511 / 541512 / 541715" },
+];
+
+const engagementPath = [
+  {
+    step: "01",
+    title: "Frame the decision",
+    description: "Define the operational problem, available data, constraints, and measurable success criteria.",
+  },
+  {
+    step: "02",
+    title: "Prototype the system",
+    description: "Build applied AI, computer vision, automation, NLP, or decision-support capabilities around the use case.",
+  },
+  {
+    step: "03",
+    title: "Validate performance",
+    description: "Test, optimize, and document model behavior so partners can evaluate readiness with evidence.",
   },
 ];
 
@@ -33,14 +59,40 @@ export const revalidate = 86400;
 export async function generateMetadata() {
   return buildMetadata({
     route: "/",
-    title: "AI Assurance & Interpretable Machine Learning Research Partner",
+    title: "AI & Machine Learning Research Partner",
     description:
-      "Sentinel Gradient LLC is a Virginia AI research firm delivering AI assurance, interpretable machine learning, and autonomy readiness for defense and public sector programs.",
+      "Sentinel Gradient LLC is a Virginia AI and machine learning research firm serving government and commercial organizations.",
     imageSlug: "home",
   });
 }
 
 export default function Home() {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: siteConfig.url,
+    email: siteConfig.email,
+    telephone: siteConfig.phone,
+    address: {
+      "@type": "PostalAddress",
+      ...siteConfig.address,
+    },
+    naics: siteConfig.naics,
+    sameAs: siteConfig.sameAs,
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.shortName,
+    url: siteConfig.url,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+  };
+
   return (
     <div className="relative overflow-hidden">
       <div className="hero-aurora" aria-hidden="true" />
@@ -50,31 +102,37 @@ export default function Home() {
       >
         <Header />
 
-        <section className="mt-16 flex flex-col gap-10 md:mt-20 md:flex-row md:items-center md:justify-between">
-          <div className="max-w-xl space-y-6 reveal-up">
+        <StructuredData id="organization-schema" data={organizationSchema} />
+        <StructuredData id="website-schema" data={websiteSchema} />
+
+        <section className="mt-16 grid gap-10 md:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-center">
+          <div className="max-w-2xl space-y-6 reveal-up">
             <p className="text-sm uppercase tracking-[0.3em] text-gray-azure-subtle">
-              Applied AI Research Studio
+              Applied AI &amp; Machine Learning Systems
             </p>
             <h1 className="text-4xl leading-tight sm:text-5xl">
               Advancing Machine Intelligence Through Rigorous Research.
             </h1>
-            <p className="max-w-xl text-lg leading-relaxed text-gray-azure">
-              Sentinel Gradient LLC evaluates, builds, and hardens machine learning systems with transparent methodologies,
-              evidence-driven benchmarks, and safeguards that scale from laboratory prototypes to operational deployments.
-              Explore our{" "}
+            <p className="max-w-2xl text-lg leading-relaxed text-gray-azure">
+              Sentinel Gradient LLC develops advanced artificial intelligence and machine learning systems for government and
+              commercial organizations. We help clients solve complex problems, improve decisions, automate critical workflows,
+              and turn data into measurable results.
+            </p>
+            <p className="max-w-2xl text-base leading-relaxed text-gray-azure">
+              Start with our{" "}
               <Link href="/capabilities" className="underline decoration-sg-light-azure hover:text-off-white">
-                AI assurance expertise
+                technical capabilities
               </Link>{" "}
-              or review our{" "}
+              , review the{" "}
               <Link
                 href="/documents/sentinel-gradient-capability-statement.pdf"
                 className="underline decoration-sg-light-azure hover:text-off-white"
               >
                 capability statement
               </Link>{" "}
-              before engaging on{" "}
+              , or evaluate{" "}
               <Link href="/contracts" className="underline decoration-sg-light-azure hover:text-off-white">
-                SBIR/STTR collaborations
+                contracting readiness
               </Link>
               .
             </p>
@@ -99,30 +157,40 @@ export default function Home() {
             </div>
           </div>
 
-          <Card className="relative mt-10 max-w-md md:mt-0 md:w-96 reveal-up reveal-delay-1">
-            <div className="absolute inset-0 -z-10 rounded-3xl border border-white/10" aria-hidden="true" />
-            <h2 className="text-sm font-semibold uppercase tracking-[0.4em] text-gray-azure-subtle">
-              Focus Areas
-            </h2>
-            <p className="mt-4 text-base text-gray-azure">
-              We align research with critical domains spanning autonomy assurance, LLM reliability, and mission-grade
-              analytics to ensure every model decision is interrogable and defensible.
-            </p>
-            <div className="mt-6 flex flex-col gap-3 text-sm text-gray-azure">
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                AI Safety &amp; Interpretability
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Applied LLM Engineering
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="h-2 w-2 rounded-full bg-sg-light-azure" aria-hidden="true" />
-                Autonomy for Complex Systems
+          <div className="relative reveal-up reveal-delay-1">
+            <div className="data-panel" aria-label="Sentinel Gradient applied AI workflow">
+              <div className="data-panel-grid" aria-hidden="true" />
+              <div className="relative space-y-6">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-[0.35em] text-gray-azure-subtle">
+                    System Focus
+                  </p>
+                  <h2 className="mt-3 text-3xl">From applied research to deployable intelligence.</h2>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {["Computer vision", "Predictive analytics", "Intelligent automation", "Decision algorithms"].map(
+                    (item) => (
+                      <div key={item} className="rounded-2xl border border-white/15 bg-white/5 p-4 text-sm text-gray-azure">
+                        <span className="block h-1 w-10 rounded-full bg-sg-light-azure" aria-hidden="true" />
+                        <span className="mt-3 block">{item}</span>
+                      </div>
+                    ),
+                  )}
+                </div>
+                <div className="rounded-2xl border border-white/15 bg-sg-night/60 p-5">
+                  <p className="text-sm uppercase tracking-[0.25em] text-gray-azure-subtle">Public company data</p>
+                  <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {proofPoints.map((point) => (
+                      <div key={point.label}>
+                        <dt className="text-xs uppercase tracking-[0.2em] text-gray-azure-subtle">{point.label}</dt>
+                        <dd className="mt-1 text-sm font-semibold text-off-white">{point.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
               </div>
             </div>
-          </Card>
+          </div>
         </section>
 
         <section
@@ -151,25 +219,49 @@ export default function Home() {
           ))}
         </section>
 
-        <Script
-          id="organization-schema"
-          type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "Sentinel Gradient LLC",
-              url: "https://sentinelgradient.com",
-              address: {
-                "@type": "PostalAddress",
-                addressRegion: "VA",
-                addressCountry: "US",
-              },
-              naics: ["541511", "541715", "541512"],
-            }),
-          }}
-        />
+        <section className="mt-24 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div className="reveal-up">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-gray-azure-subtle">
+              Engagement Path
+            </p>
+            <h2 className="mt-3 text-3xl sm:text-4xl">A clear route from problem framing to validated capability.</h2>
+            <p className="mt-4 text-base leading-relaxed text-gray-azure">
+              The site now mirrors how a partner evaluates us: understand the technical fit, review evidence, then open a
+              focused collaboration discussion.
+            </p>
+          </div>
+          <ol className="grid gap-4">
+            {engagementPath.map((item, index) => (
+              <li key={item.step} className={`process-row reveal-up ${index === 1 ? "reveal-delay-1" : index === 2 ? "reveal-delay-2" : ""}`}>
+                <span className="process-step">{item.step}</span>
+                <div>
+                  <h3 className="text-xl font-semibold text-off-white">{item.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-gray-azure">{item.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <Card className="mt-24 grid gap-6 rounded-3xl border border-white/15 bg-white/5 p-8 md:grid-cols-[1fr_auto] md:items-center">
+          <div>
+            <h2 className="text-3xl">Evaluate fit with our latest capability statement.</h2>
+            <p className="mt-3 max-w-3xl text-base leading-relaxed text-gray-azure">
+              Review Sentinel Gradient&apos;s company overview, core competencies, differentiators, past performance, and contract
+              identifiers in one concise PDF.
+            </p>
+          </div>
+          <ButtonLink
+            href="/documents/sentinel-gradient-capability-statement.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+            eventName="capability_pdf_download"
+            eventParams={{ source: "home_final_cta" }}
+          >
+            Download PDF
+          </ButtonLink>
+        </Card>
 
         <Footer />
       </main>
