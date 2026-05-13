@@ -105,7 +105,7 @@ export default function Home() {
         <StructuredData id="organization-schema" data={organizationSchema} />
         <StructuredData id="website-schema" data={websiteSchema} />
 
-        <section className="mt-16 grid gap-10 md:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-center">
+        <section className="mt-16 grid gap-10 md:mt-20 lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] lg:items-start">
           <div className="max-w-2xl space-y-6 reveal-up">
             <p className="text-sm uppercase tracking-[0.3em] text-gray-azure-subtle">
               Applied AI &amp; Machine Learning Systems
@@ -189,6 +189,32 @@ export default function Home() {
                   </dl>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          className="mt-16 rounded-3xl border border-[rgba(31,151,193,0.45)] bg-[rgba(31,151,193,0.10)] p-6 shadow-2xl backdrop-blur reveal-up md:p-8"
+          aria-label="Highlighted Sentinel Gradient experience"
+        >
+          <div className="grid gap-6 lg:grid-cols-[0.35fr_0.65fr] lg:items-center">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-azure-subtle">
+                Highlighted experience
+              </p>
+              <h2 className="mt-3 text-3xl">NIH-funded GALVAT support.</h2>
+            </div>
+            <div className="space-y-4">
+              <p className="text-base leading-relaxed text-gray-azure">
+                Sentinel Gradient supported Applied Universal Dynamics Corporation as a subcontractor, developing AI vision
+                capabilities for ultra-low vision assistive technology.
+              </p>
+              <Link
+                href="/contracts"
+                className="inline-flex text-sm font-semibold text-off-white underline decoration-sg-light-azure underline-offset-4 hover:text-[#1f97c1]"
+              >
+                View contracting readiness
+              </Link>
             </div>
           </div>
         </section>

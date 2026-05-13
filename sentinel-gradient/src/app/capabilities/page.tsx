@@ -17,7 +17,7 @@ const capabilityAreas = [
   {
     title: "Computer Vision & Sensor Intelligence",
     description:
-      "Computer vision and sensor-based intelligence for real-world assistive technology, object detection, and low-latency perception workflows designed for complex environments.",
+      "Computer vision and sensor-based intelligence for real-world assistive technology, object detection, and low-latency perception workflows, including AI vision support as an AUD subcontractor on NIH-funded GALVAT work.",
     tags: ["Computer Vision", "Sensors", "Detection", "Edge Performance"],
   },
   {
@@ -47,7 +47,7 @@ const capabilityAreas = [
 ];
 
 const readinessSignals = [
-  "Proven experience developing advanced AI systems for real-world assistive technology applications.",
+  "Supported NIH-funded GALVAT work as a subcontractor to Applied Universal Dynamics Corporation (AUD), developing AI vision for ultra-low vision assistive technology.",
   "Specialized expertise in computer vision, machine learning, and intelligent automation.",
   "Deployable prototypes designed for low latency, edge-device performance, and measurable operational value.",
 ];

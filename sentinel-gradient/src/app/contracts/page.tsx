@@ -26,7 +26,7 @@ const naicsCodes = [
 ];
 
 const researchHighlights = [
-  "Supported NIH-funded research as a subcontractor developing AI vision systems for ultra-low vision assistive technology.",
+  "Supported NIH-funded GALVAT work as a subcontractor to Applied Universal Dynamics Corporation (AUD), developing AI vision for ultra-low vision assistive technology.",
   "Selected as a Phase 1 winner in the NIH OligoTox Open Data Challenge for AI-based toxicity prediction.",
   "Built real-time detection models for everyday objects in complex indoor environments.",
   "Delivered deployable prototypes designed for low latency and edge-device performance.",
@@ -50,7 +50,7 @@ export async function generateMetadata() {
     route: "/contracts",
     title: "Contracts & SBIR/STTR AI Partner — Sentinel Gradient",
     description:
-      "Partner with Sentinel Gradient LLC, an active SAM-registered AI and machine learning small business serving government and commercial organizations.",
+      "Partner with Sentinel Gradient LLC, an active SAM-registered AI and machine learning small business with NIH-funded subcontractor experience.",
   });
 }
 
@@ -106,6 +106,9 @@ export default function ContractsPage() {
                 Active SAM registration with UEI and CAGE identifiers available for rapid review.
               </li>
               <li>
+                NIH-funded GALVAT subcontractor experience with Applied Universal Dynamics Corporation.
+              </li>
+              <li>
                 Agile small business able to move quickly and work directly with clients.
               </li>
               <li>
@@ -124,6 +127,19 @@ export default function ContractsPage() {
               deployable prototypes that bridge scientific innovation and operational capability.
             </p>
           </div>
+          <Card className="border-[rgba(31,151,193,0.45)] bg-[rgba(31,151,193,0.10)] text-gray-azure">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-azure-subtle">
+              Highlighted Past Performance
+            </p>
+            <h3 className="mt-3 text-2xl text-off-white">
+              NIH-funded GALVAT subcontractor support with Applied Universal Dynamics Corporation.
+            </h3>
+            <p className="mt-4 max-w-4xl text-base leading-relaxed text-gray-azure">
+              Sentinel Gradient supported GALVAT work as an AUD subcontractor, developing AI vision capabilities for
+              ultra-low vision assistive technology. This experience demonstrates applied computer vision delivery in a
+              mission-relevant, real-world assistive technology setting.
+            </p>
+          </Card>
           <div className="grid gap-8 md:grid-cols-2">
             <Card className="text-gray-azure">
               <h3 className="text-2xl text-off-white">Contract Identifiers</h3>
